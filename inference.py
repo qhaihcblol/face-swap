@@ -22,13 +22,23 @@ model.load_state_dict(torch.load(args.weight_path, map_location="cpu"), strict=F
 model.eval()
 model.to(device)
 
+# target_img = (
+#     transforms.ToTensor()(Image.open(args.target_image)).unsqueeze(0).to(device)
+# )
+# source_img = (
+#     transforms.ToTensor()(Image.open(args.source_image)).unsqueeze(0).to(device)
+# )
 target_img = (
-    transforms.ToTensor()(Image.open(args.target_image)).unsqueeze(0).to(device)
-)
-source_img = (
-    transforms.ToTensor()(Image.open(args.source_image)).unsqueeze(0).to(device)
+    transforms.ToTensor()(Image.open(args.target_image).convert("RGB"))
+    .unsqueeze(0)
+    .to(device)
 )
 
+source_img = (
+    transforms.ToTensor()(Image.open(args.source_image).convert("RGB"))
+    .unsqueeze(0)
+    .to(device)
+)
 with torch.no_grad():
     output = model(target_img, source_img)
 Image.fromarray(
