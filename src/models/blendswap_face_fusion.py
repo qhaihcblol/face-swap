@@ -70,14 +70,13 @@ class BlendSwap:
             providers=providers or _PROVIDERS,
         )
 
-        inputs = self._sess.get_inputs()
-        self._src_name = inputs[0].name  # (1,3,112,112)
-        self._tgt_name = inputs[1].name  # (1,3,256,256)
+        by_name = {inp.name: inp for inp in self._sess.get_inputs()}
+        self._src_name = "source"
+        self._tgt_name = "target"
         self._out_name = self._sess.get_outputs()[0].name
 
-        # confirm shapes at load time
-        self._src_size = tuple(inputs[0].shape[2:])  # (112, 112)
-        self._tgt_size = tuple(inputs[1].shape[2:])  # (256, 256)
+        self._src_size = tuple(by_name["source"].shape[2:])  # (112, 112)
+        self._tgt_size = tuple(by_name["target"].shape[2:])  # (256, 256)
 
     def __call__(
         self,
