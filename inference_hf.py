@@ -19,7 +19,7 @@ model = BlendSwap(model_path=args.model_path)
 src_raw = cv2.imread(args.source_image)
 if src_raw is None:
     raise FileNotFoundError(args.source_image)
-source = cv2.resize(src_raw, (256, 256))
+source = cv2.resize(src_raw, (112, 112))
 
 output_dir = Path(args.output_dir)
 output_dir.mkdir(parents=True, exist_ok=True)
@@ -29,7 +29,7 @@ for target_path in args.target_images:
     if tgt_raw is None:
         print(f"Warning: cannot read {target_path}, skipping")
         continue
-    target = cv2.resize(tgt_raw, (112, 112))
+    target = cv2.resize(tgt_raw, (256, 256))
 
     result = model(source, target)  # BGR uint8, 256×256
 
