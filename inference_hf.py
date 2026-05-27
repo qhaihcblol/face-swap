@@ -19,7 +19,7 @@ model = BlendSwap(model_path=args.model_path)
 src_raw = cv2.imread(args.source_image)
 if src_raw is None:
     raise FileNotFoundError(args.source_image)
-source = cv2.resize(src_raw, (112, 112))
+source = cv2.resize(src_raw, (256, 256))
 
 output_dir = Path(args.output_dir)
 output_dir.mkdir(parents=True, exist_ok=True)
