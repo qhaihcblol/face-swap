@@ -29,7 +29,7 @@ for target_path in args.target_images:
     if tgt_raw is None:
         print(f"Warning: cannot read {target_path}, skipping")
         continue
-    target = cv2.resize(tgt_raw, (256, 256))
+    target = cv2.resize(tgt_raw, (112, 112))
 
     result = model(source, target)  # BGR uint8, 256×256
 
